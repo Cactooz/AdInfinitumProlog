@@ -1,13 +1,12 @@
-selectS(X,[X|T],T).
-selectS(X,[Y|T],[Y|R]) :- selectS(X,T,R).
-
 %Get the length of a list
 lengthS([],0).
 lengthS([_|T],N) :- lengthS(T,N1), N is N1+1.
 
-%Give all permutations of a list
-permute([],[]).
-permute(L,[X|R2]) :- selectS(X,L,R1), permute(R1,R2).
+appendS([],L,L).
+appendS([H|T],L,[H|R]) :- appendS(T,L,R).
 
-%Get the permutations and length of the list
-partstring(List, Length, F) :- permute(List,F), lengthS(F,Length).
+%Get the parts of the list with numbers in order
+split(List, Result) :- appendS(_, Part, List), appendS(Start, [End|_], Part), appendS(Start, [End], Result).
+
+%Get the different parts and length of the list
+partstring(List, L, F) :- split(List, F), lengthS(F, L).
