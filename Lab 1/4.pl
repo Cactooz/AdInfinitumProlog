@@ -6,30 +6,27 @@ edge(b,c).
 edge(b,d).
 edge(c,b).
 
-%Check if a path exsists from Start to End
-path(Start,Start).
-%path(Start,End) :- edge(Start,Node), path(Node,End).
+selectS(X,[X|T],T).
+selectS(X,[Y|T],[Y|R]) :- selectS(X,T,R).
 
-%Check for paths without loops from Start to End
-/*path(Start,Node) :- path(Start,End,[Start]).
-
-path(Start,Start,Visited).
-path(Start,End,Visited) :- edge(Start,Node),
-						\+ singlemember(Node,Visited),
-						path(Node,End,[Node|Visited]).*/
+%Check if a Node is a member of the List
+memberchkS(Node,List) :- selectS(Node,List,_), !.
 
 %Reverse the inputted list
 reverse_list([],[]).
 reverse_list([Head|Tail],R) :- reverse_list(Tail,RT), appendS(RT, [Head], R).
 
-%Return all the paths from Start to End
+%:- Return all the paths from Start to End
+%,  Since the visited are in the wrong order, it has to be reveresed
 path(Start,End,Result) :- path(Start,End,[Start],Path), reverse_list(Path,Result).
 
+%Basecase for Path for Start to Start
+%The Path list becomes the visited, which are in the wrong order
 path(Start,Start,Visited,Visited).
-path(Start,End,Visited,Path) :- edge(Start,Node),
-							\+ singlemember(Node,Visited),
-							path(Node,End,[Node|Visited],Path).
 
-%Check for a single member in list
-singlemember(Start,[Start|Node]) :- !.
-singlemember(Start,[Node|End]) :- singlemember(Start,End).
+%:- Check if an edge exists from start to a node
+%,  \+ = stop if the node exists in out visisted nodes list (from a potential loop)
+%,  if it does not exsist in the visited nodes list, continue with the recrusion until the end is found
+path(Start,End,Visited,Path) :- edge(Start,Node),
+								\+ memberchkS(Node,Visited),
+								path(Node,End,[Node|Visited],Path).
