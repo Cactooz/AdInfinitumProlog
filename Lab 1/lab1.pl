@@ -7,7 +7,6 @@
 % Delkursansvarig: 
 % Thomas Sjöland,  sjoland@kth.se, 08 - 790 4113
 
-
 % Här är några generellt användbara definitioner av 
 % predikat som du kan använda:
 % Andra predikat som definierats i bibliotek i ert 
@@ -19,8 +18,7 @@ append([],L,L).
 append([H|T],L,[H|R]) :- append(T,L,R).
 
 appendEl(X, [], [X]).
-appendEl(X, [H | T], [H | Y]) :-
-           appendEl(X, T, Y).
+appendEl(X, [H | T], [H | Y]) :- appendEl(X, T, Y).
 
 length([],0).
 length([_|T],N) :- length(T,N1), N is N1+1.
@@ -40,7 +38,6 @@ member(X,L) :- select(X,L,_).
 
 memberchk(X,L) :- select(X,L,_), !.
 
-
 % Uppgifterna 1, 2, 3, 4 skall lösas för godkänt betyg! 
 % Den sista uppgiften ger inga extra poäng.
 % De angivna poängtalen visar ungefärliga svårighetsgraden.
@@ -50,7 +47,6 @@ memberchk(X,L) :- select(X,L,_), !.
 % unifiering
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 % Betrakta denna fråga till ett Prologsystem:
 %
 % ?- T=f(a,Y,Z), T=f(X,X,b).
@@ -59,12 +55,10 @@ memberchk(X,L) :- select(X,L,_), !.
 %
 % Ge en kortfattad färklaring till ditt svar!
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % uppgift 2 	(6p)
 % representation 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 % En lista är en representation av sekvenser där 
 % den tomma sekvensen representeras av symbolen []
@@ -95,17 +89,15 @@ list([H|T]) :- list(T).
 % Färklara varfär man kan kalla detta predikat för en
 % funktion!
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % uppgift 3	(6p)
 % rekursion och backtracking  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 % Definiera predikatet partstring/3 som givet en lista som 
-% färsta argument genererar en lista F med längden L som 
-% man finner konsekutivt i den färsta listan!
-% Alla mäjliga svar skall kunna presenteras med hjälp av 
+% första argument genererar en lista F med längden L som 
+% man finner konsekutivt i den första listan!
+% Alla möjliga svar skall kunna presenteras med hjälp av 
 % backtracking om man begär fram dem.
 
 % Till exempel:
@@ -114,11 +106,9 @@ list([H|T]) :- list(T).
 
 % genererar t.ex.F=[4] och L=1
 % eller F=[1,2] och L=2
-% eller ocksÌ´ F=[1,2,3] och L=3
+% eller också F=[1,2,3] och L=3
 % eller F=[2,3] och L=2 
 % osv.
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % uppgift 4       (8p)
@@ -135,12 +125,11 @@ list([H|T]) :- list(T).
 % utan att fastna i en loop tar fram en väg som en lista av 
 % namnen på noderna i den ordning de passeras när man utan 
 % att passera en nod mer än en gång går från nod A till nod B!
-% Finns det flera mäjliga vägar skall de presenteras 
+% Finns det flera möjliga vägar skall de presenteras 
 % en efter en, om man begär det.
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% extra uppgift (utan poäng, enbart fär ert häga näje!)
+% extra uppgift (utan poäng, enbart fär ert höga nöje!)
 % stabil regering
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -157,7 +146,6 @@ list([H|T]) :- list(T).
 % Hitta på lämpliga värden själv! 
 % Sätt värdet 0 som partiets självvärdering.
 
-
 % En stabil regering uppfyller två villkor:
 
 % 1. summan av antalet mandat fär de valda partierna är 
@@ -166,10 +154,8 @@ list([H|T]) :- list(T).
 %    sinsemellan är positivt. 
 %   (De har totalt mer gemensamt än motsatsen.)
 
-
 % Skriv ett Prolog-program som färeslår 
 % en stabil regering i Filurien!
-
 
 %	Lycka till!
 %	Thomas
