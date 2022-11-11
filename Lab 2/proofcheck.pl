@@ -6,9 +6,9 @@ and(X, Y) :- X, Y.
 
 or(X, Y) :- X; Y.
 
-not(X) :- X, !, fail; true.
+neg(X) :- X, !, fail; true.
 
-imp(X, Y) :- and(X, Y); not(X).
+imp(X, Y) :- and(X, Y); neg(X).
 
 % Verify the data from the inputted file
 verify(InputFileName) :- see(InputFileName), read(Premiss), read(Goal),
