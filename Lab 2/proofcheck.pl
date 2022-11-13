@@ -60,3 +60,12 @@ ruleCheck([_, Step, contel(X)], _, Checked) :- member([X, cont, _], Checked).
 
 %Check for negnegel(X)
 ruleCheck([_, Step, negneg(X)], _, Checked) :- member([X, neg(neg(Step)), _], Checked).
+
+%Check for andint(X,Y)
+ruleCheck([_, and(Part1, Part2), andint(X,Y)], _, Checked) :- member([X, Part1, _], Checked), member([Y, Part2, _], Checked).
+
+%Check for orint1(X)
+ruleCheck([_, or(Part, _), orint1(X)], _, Checked) :- member([X, Part, _], Checked).
+
+%Check for orint2(X)
+ruleCheck([_, or(_, Part), orint2(X)], _, Checked) :- member([X, Part, _], Checked).
