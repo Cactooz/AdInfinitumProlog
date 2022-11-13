@@ -38,3 +38,7 @@ checkProof([], _, _).
 checkProof([Head|Tail], Premise, Checked) :- ruleCheck(Head, Premise, Checked),
 											addChecked(Head, Checked, NewChecked),
 											checkProof(Tail, Premise, NewChecked).
+
+
+%Check for premise
+ruleCheck([_, Step, premise], Premise, _) :- member(Step, Premise).
