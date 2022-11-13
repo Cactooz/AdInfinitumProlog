@@ -27,7 +27,7 @@ addChecked(Line, Old, New) :- appendLast(Line, Old, New).
 
 %Go to the last line in the proof
 goToLastLine([X], X).
-goToLastLine([Head|Tail], NextLine) :- goToLastLine(Tail, NextLine).
+goToLastLine([_|Tail], NextLine) :- goToLastLine(Tail, NextLine).
 
 %Check if the last line of the proof is the goal
 goalCheck(Proof, Goal) :- goToLastLine(Proof, R), member(Goal, R), !.
@@ -42,3 +42,21 @@ checkProof([Head|Tail], Premise, Checked) :- ruleCheck(Head, Premise, Checked),
 
 %Check for premise
 ruleCheck([_, Step, premise], Premise, _) :- member(Step, Premise).
+
+%Check for andel1(X)
+ruleCheck([_, Step, andel1(X)], _, Checked) :- member([X, and(Step, _), _], Checked).
+
+%Check for andel2(X)
+ruleCheck([_, Step, andel2(X)], _, Checked) :- member([X, and(_, Step), _], Checked).
+
+%Check for impel(X,Y)
+ruleCheck([_, Step, impel(X,Y)], _, Checked) :- member([X, Previous, _], Checked), member([Y, imp(Previous, Step), _], Checked).
+
+%Check for negel(X)
+ruleCheck([_, cont, negel(X,Y)], _, Checked) :- member([X, Step, _], Checked), member([Y, neg(Step), _], Checked).
+
+%Check for contel(X)
+ruleCheck([_, Step, contel(X)], _, Checked) :- member([X, cont, _], Checked).
+
+%Check for negnegel(X)
+ruleCheck([_, Step, negneg(X)], _, Checked) :- member([X, neg(neg(Step)), _], Checked).
