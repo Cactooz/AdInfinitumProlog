@@ -1,9 +1,9 @@
-[neg(neg(and(p,q)))].
+[and(p,q)].
 
-q.
+neg(neg(p)).
 
 [
-  [1, neg(neg(and(p,q))),   premise   ],
-  [2, and(p,q),             negnegel(1)],
-  [3, q,                    andel2(2) ]
+  [1, and(p,q),     premise      ],
+  [2, p,            andel1(1)    ],
+  [3, neg(neg(p)),  negnegint(2) ]
 ].

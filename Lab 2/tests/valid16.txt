@@ -1,14 +1,14 @@
-[q, neg(and(p,q))].
+[imp(neg(q),p), neg(p)].
 
-neg(p).
+q.
 
 [
   [
-    [1, p,     assumption],
-    [2, q,     premise],
-    [3, and(p,q), andint(1,2)]
+    [1, neg(q),        assumption ],
+    [2, imp(neg(q),p), premise    ],
+    [3, p,             impel(1,2) ],
+    [4, neg(p),        premise    ],
+    [5, cont,          negel(3, 4)]
   ],
-  [4, imp(p, and(p,q)), impint(1,3)],
-  [5, neg(and(p,q)), premise],
-  [6, neg(p), mt(4, 5)]
+  [6, q,               pbc(1,5)   ]
 ].

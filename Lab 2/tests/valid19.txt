@@ -1,18 +1,13 @@
-[or(p,q),x].
+[q].
 
-and(imp(p,x),x).
+and(imp(p,q),imp(p,q)).
 
 [
-  [1, or(p,q),           premise],
   [
-    [2, p,               assumption],
-    [3, x,               premise]
+    [1, p,                     assumption],
+    [2, q,                     premise]
   ],
-  [4, imp(p, x),         impint(2,3)],
-  [
-    [5, q,               assumption],
-    [6, x,               premise]
-  ],
-  [7, x,                 orel(1,2,3,5,6)],
-  [8, and(imp(p,x),x),   andint(4,7)]
+  [3, imp(p,q),                impint(1,2)],
+  [4, imp(p,q),                impint(1,2)],
+  [5, and(imp(p,q),imp(p,q)),  andint(3,4)]
 ].
