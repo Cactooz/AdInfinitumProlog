@@ -59,7 +59,7 @@ ruleCheck([_, cont, negel(X,Y)], _, Checked) :- member([X, Step, _], Checked), m
 ruleCheck([_, Step, contel(X)], _, Checked) :- member([X, cont, _], Checked).
 
 %Check for negnegel(X)
-ruleCheck([_, Step, negneg(X)], _, Checked) :- member([X, neg(neg(Step)), _], Checked).
+ruleCheck([_, Step, negnegel(X)], _, Checked) :- member([X, neg(neg(Step)), _], Checked).
 
 %Check for andint(X,Y)
 ruleCheck([_, and(Part1, Part2), andint(X,Y)], _, Checked) :- member([X, Part1, _], Checked), member([Y, Part2, _], Checked).
