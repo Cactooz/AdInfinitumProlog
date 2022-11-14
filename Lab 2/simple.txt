@@ -1,5 +1,24 @@
-[p, q, r].
+[and(p,q), r, imp(m,n), m, neg(r)].
 
-p.
+q.
 
-[[1, p, premise]].
+[
+    [1, and(p,q), premise],
+    [2, r, premise],
+    [3, p, andel1(1)],
+    [4, p, copy(3)],
+    [5, and(p,r), andint(4,2)],
+    [6, or(r, s), orint1(2)],
+    [7, or(t, r), orint2(2)],
+    [8, imp(m,n), premise],
+    [9, m, premise],
+    [10, n, impel(9,8)],
+    [11, neg(r), premise],
+    [12, cont, negel(2,11)],
+    [13, neg(neg(r)), negnegint(2)],
+    [14, r, negnegel(13)],
+    [15, neg(n), contel(12)],
+    [16, neg(m), mt(8,15)],
+    [17, or(k, neg(k)), lem],
+    [18, q, andel2(1)]
+].
