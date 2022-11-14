@@ -69,3 +69,15 @@ ruleCheck([_, or(Part, _), orint1(X)], _, Checked) :- member([X, Part, _], Check
 
 %Check for orint2(X)
 ruleCheck([_, or(_, Part), orint2(X)], _, Checked) :- member([X, Part, _], Checked).
+
+%Check for negnegint(X)
+ruleCheck([_, neg(neg(Step)), negnegint(X)], _, Checked) :- member([X, Step, _], Checked).
+
+%Check for copy(X)
+ruleCheck([_, Step, copy(X)], _, Checked) :- member([X, Step, _], Checked).
+
+%Check for lem
+ruleCheck([_, or(X,Y), lem], _, _) :- Y = neg(X). 
+
+%Check for MT(X,Y)
+ruleCheck([_, neg(Step), mt(X,Y)], _, Checked) :- member([X, imp(Step, Part), _], Checked), member([Y, neg(Part), _], Checked).
