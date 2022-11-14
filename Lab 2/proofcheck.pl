@@ -70,6 +70,7 @@ ruleCheck([_, or(Part, _), orint1(X)], _, Checked) :- member([X, Part, _], Check
 %Check for orint2(X)
 ruleCheck([_, or(_, Part), orint2(X)], _, Checked) :- member([X, Part, _], Checked).
 
+
 %Check for negnegint(X)
 ruleCheck([_, neg(neg(Step)), negnegint(X)], _, Checked) :- member([X, Step, _], Checked).
 
@@ -81,3 +82,21 @@ ruleCheck([_, or(X,Y), lem], _, _) :- Y = neg(X).
 
 %Check for MT(X,Y)
 ruleCheck([_, neg(Step), mt(X,Y)], _, Checked) :- member([X, imp(Step, Part), _], Checked), member([Y, neg(Part), _], Checked).
+
+
+%Check an assumption start and go through the box
+ruleCheck([[X, Step, assumption]|Box], Premise, Checked) :- addChecked([X, Step, assumption], Checked, NewChecked), checkProof(Box, Premise, NewChecked).
+
+%Check for orel(X,A,B,C,D)
+ruleCheck([_, Result, orel(X,A,B,C,D)], _, Checked) :- member([X, or(Part1, Part2), _], Checked), member(Box1, Checked), member(Box2, Checked),
+													member([A, Part1, assumption], Box1), member([B, Result, _], Box1),
+													member([C, Part2, assumption], Box2), member([D, Result, _], Box2).
+
+%Check for impint
+ruleCheck([_, imp(Start, End), impint(X,Y)], _, Checked) :- member(Box, Checked), member([X, Start, assumption], Box), member([Y, End, _], Box).
+
+%Check for negint
+ruleCheck([_, neg(Step), negint(X,Y)], _, Checked) :- member(Box, Checked), member([X, Step, assumption], Box), member([Y, cont, _], Box).
+
+%Check for PBC(X,Y)
+ruleCheck([_, Step, pbc(X,Y)], _, Checked) :- member(Box, Checked), member([X, neg(Step), assumption], Box), member([Y, cont, _], Box).
