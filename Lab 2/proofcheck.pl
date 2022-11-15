@@ -17,14 +17,6 @@ verify(InputFileName) :- see(InputFileName), read(Premise), read(Goal),
 validProof(Premise, Goal, Proof) :- goalCheck(Proof, Goal),
 									checkProof(Proof, Premise, []), !.
 
-%List management predicates
-%Append line to end of list
-appendLast(X, [], [X]).
-appendLast(A, [Head|Tail], [Head|R]) :- appendLast(A, Tail, R).
-
-%Adds the checked line to the checked list
-addChecked(Line, Old, New) :- appendLast(Line, Old, New).
-
 %Check that the goal is the correct goal, otherwise the proof is invalid
 %Go to the last line in the proof
 goToLastLine([X], X).
@@ -37,8 +29,7 @@ goalCheck(Proof, Goal) :- goToLastLine(Proof, R), member(Goal, R), !.
 %Check if a line in the proof is correct and continue to the next line recursively
 checkProof([], _, _).
 checkProof([Head|Tail], Premise, Checked) :- ruleCheck(Head, Premise, Checked),
-											 addChecked(Head, Checked, NewChecked),
-											 checkProof(Tail, Premise, NewChecked).
+											 checkProof(Tail, Premise, [Head|Checked]).
 
 %Check for premise
 ruleCheck([_, Part, premise], Premise, _) :- member(Part, Premise).
@@ -91,8 +82,7 @@ ruleCheck([_, neg(Part), mt(X,Y)], _, Checked) :- member([X, imp(Part, Part2), _
 
 %Check for box rules, both introduction, elimination and derived
 %Check an assumption start and go through the box
-ruleCheck([[X, Part, assumption]|Box], Premise, Checked) :- addChecked([X, Part, assumption], Checked, NewChecked),
-															checkProof(Box, Premise, NewChecked).
+ruleCheck([[X, Part, assumption]|Box], Premise, Checked) :- checkProof(Box, Premise, [[X, Part, assumption]|Checked]).
 
 %Find a box that starts with an assumption and end with the correct result
 %Check for orel(X,A,B,C,D)
