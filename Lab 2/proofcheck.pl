@@ -88,20 +88,23 @@ ruleCheck([[X, Part, assumption]|Box], Premise, Checked) :- checkProof(Box, Prem
 %Check for orel(X,A,B,C,D)
 ruleCheck([_, Result, orel(X,A,B,C,D)], _, Checked) :- member([X, or(Part1, Part2), _], Checked),
 													   member(Box1, Checked), member(Box2, Checked),
-													   member([A, Part1, assumption], Box1), member([B, Result, _], Box1),
-													   member([C, Part2, assumption], Box2), member([D, Result, _], Box2).
+													   member([A, Part1, assumption], Box1), goToLastLine(Box1, Last1), Last1 = [B, Result, _],
+													   member([C, Part2, assumption], Box2), goToLastLine(Box2, Last2), Last2 = [D, Result, _].
 
 %Check for impint
 ruleCheck([_, imp(Part1, Part2), impint(X,Y)], _, Checked) :- member(Box, Checked),
 															  member([X, Part1, assumption], Box),
-															  member([Y, Part2, _], Box).
+															  goToLastLine(Box, Last),
+															  Last = [Y, Part2, _].
 
 %Check for negint
 ruleCheck([_, neg(Part), negint(X,Y)], _, Checked) :- member(Box, Checked),
 													  member([X, Part, assumption], Box),
-													  member([Y, cont, _], Box).
+													  goToLastLine(Box, Last),
+													  Last = [Y, cont, _].
 
 %Check for PBC(X,Y)
 ruleCheck([_, Part, pbc(X,Y)], _, Checked) :- member(Box, Checked),
 											  member([X, neg(Part), assumption], Box),
-											  member([Y, cont, _], Box).
+											  goToLastLine(Box, Last),
+											  Last = [Y, cont, _].
